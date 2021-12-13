@@ -5,15 +5,6 @@ Crear - Mesas
 @endsection
 
 @section('content')
-@if(count($errors)>0)
-<div class="alert alert-danger" role="alert">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 <div class="card">
     <div class="card-header">
         <strong>Formulario para crear Mesas</strong>
@@ -26,13 +17,19 @@ Crear - Mesas
                 <div class="col-6">
                     <div class="form-group" action="">
                         <label for="">Nombre Mesa:</label>
-                        <input type="text" class="form-control" name="nombreMesa">
+                        <input type="text" class="form-control" name="nombreMesa" value="{{old('nombreMesa')}}">
+                        @error('nombreMesa')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group" action="">
                         <label for="">Numero de Asientos:</label>
-                        <input type="number" class="form-control" name="numAsientos">
+                        <input type="number" class="form-control" name="numAsientos" value="{{old('numAsientos')}}">
+                        @error('numAsientos')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-6">

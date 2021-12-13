@@ -29,9 +29,9 @@ class ClienteController extends Controller
             })
             ->addColumn('cambiarE', function ($cliente) {
                 if ($cliente->estado == 1) {
-                    return '<a class="btn btn-danger" href="/cliente/cambiar/estado/' . $cliente->id . '/0">Inactivo</a>';
+                    return '<a class="btn btn-danger" href="/cliente/cambiar/estado/' . $cliente->id . '/0">Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success" href="/cliente/cambiar/estado/' . $cliente->id . '/1">Activo</a>';
+                    return '<a class="btn btn-success" href="/cliente/cambiar/estado/' . $cliente->id . '/1">Activar</a>';
                 }
             })
             ->rawColumns(['editar', 'cambiarE'])
@@ -46,23 +46,18 @@ class ClienteController extends Controller
 
     public function save(Request $request)
     {
+        //Validacion
+        $request->validate([
+            'documento_cliente' => "required",
+            'nombres_cliente' => "required",
+            'direccion_cliente' => "required",
+            'telefono_cliente' => "required",
+        ]);
+
         $input = request()->except('_token');
         //$input = request()->all();
         // print_r($input);
 
-        $campos = [
-            'documento' => 'required',
-            'nombres' => 'required',
-            'direccion' => 'required',
-            'telefono' => 'required'
-        ];
-
-        $mensaje = [
-            'required' => 'El :attribute es requerido.',
-            'direccion.required' => 'La :attribute es requerida.'
-        ];
-
-        $this->validate($request, $campos, $mensaje);
         try {
             Cliente::create([
                 "documento" => $input["documento_cliente"],
@@ -96,20 +91,16 @@ class ClienteController extends Controller
 
     public function update(Request $request)
     {
+        //Validacion
+        $request->validate([
+            'documento_cliente' => "required",
+            'nombres_cliente' => "required",
+            'direccion_cliente' => "required",
+            'telefono_cliente' => "required",
+        ]);
+
         $input = request()->except('_token');
         //$input = request()->all();
-
-        $campos = [
-            'documento' => 'required',
-            'nombre' => 'required',
-            'direccion' => 'required',
-            'telefono' => 'required'
-        ];
-
-        $mensaje = [
-            'required' => 'El :attribute es requerido',
-            'direccion.required' => 'La :attribute es requerida'
-        ];
 
         try {
             $cliente = Cliente::find($input["id"]);

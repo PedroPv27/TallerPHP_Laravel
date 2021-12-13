@@ -1,19 +1,10 @@
 @extends('layouts.app')
 
 @section('tittle')
-Crear - Rerservas
+Crear - Reservas
 @endsection
 
 @section('content')
-@if(count($errors)>0)
-<div class="alert alert-danger" role="alert">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 <div class="card">
     <div class="card-header">
         <strong>Formulario para crear Reservas</strong>
@@ -31,6 +22,9 @@ Crear - Rerservas
                             <option value="{{$value->id}}">{{$value->nombres}}</option>
                             @endforeach
                         </select>
+                        @error('cliente_id')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4">
@@ -42,12 +36,18 @@ Crear - Rerservas
                             <option value="{{$value->id}}">{{$value->nombre_mesa}}</option>
                             @endforeach
                         </select>
+                        @error('mesa_id')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group" action="">
                         <label for="">Fecha Fin de la Reserva</label>
                         <input type="date" class="form-control" name="fechaFin_reserva">
+                        @error('fechaFin_reserva')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -5,15 +5,6 @@ Crear - Clientes
 @endsection
 
 @section('content')
-@if(count($errors)>0)
-<div class="alert alert-danger" role="alert">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 <div class="card">
     <div class="card-header">
         <strong>Formulario para crear Clientes</strong>
@@ -25,25 +16,37 @@ Crear - Clientes
                 <div class="col-4">
                     <div class="form-group" action="">
                         <label for="">Documento Cliente</label>
-                        <input type="text" class="form-control" name="documento_cliente">
+                        <input type="text" class="form-control" name="documento_cliente" value="{{old('documento_cliente')}}">
+                        @error('documento_cliente')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group" action="">
                         <label for="">Nombres del Cliente</label>
-                        <input type="text" class="form-control" name="nombres_cliente">
+                        <input type="text" class="form-control" name="nombres_cliente" value="{{old('nombres_cliente')}}">
+                        @error('nombres_cliente')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group" action="">
                         <label for="">Dirección del Cliente</label>
-                        <input type="text" class="form-control" name="direccion_cliente">
+                        <input type="text" class="form-control" name="direccion_cliente" value="{{old('direccion_cliente')}}">
+                        @error('direccion_cliente')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group" action="">
                         <label for="">Teléfono del Cliente</label>
-                        <input type="text" class="form-control" name="telefono_cliente">
+                        <input type="text" class="form-control" name="telefono_cliente" value="{{old('telefono_cliente')}}">
+                        @error('telefono_cliente')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
             </div>

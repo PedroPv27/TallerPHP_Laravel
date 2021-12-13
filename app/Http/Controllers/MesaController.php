@@ -31,9 +31,9 @@ class MesaController extends Controller
             })
             ->addColumn('cambiarE', function ($mesa) {
                 if ($mesa->estado == 1) {
-                    return '<a class="btn btn-danger" href="/mesa/cambiar/estado/' . $mesa->id . '/0">Inactivo</a>';
+                    return '<a class="btn btn-danger" href="/mesa/cambiar/estado/' . $mesa->id . '/0">Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success" href="/mesa/cambiar/estado/' . $mesa->id . '/1">Activo</a>';
+                    return '<a class="btn btn-success" href="/mesa/cambiar/estado/' . $mesa->id . '/1">Activar</a>';
                 }
             })
             ->rawColumns(['editar', 'cambiarE', 'imagen_mesa'])
@@ -48,20 +48,14 @@ class MesaController extends Controller
 
     public function save(Request $request)
     {
+        //Validacion
+        $request->validate([
+            'nombreMesa' => "required",
+            'numAsientos' => "required",
+        ]);
+
         $input = request()->except('_token');
         //$input = request()->all();
-
-        $campos = [
-            'nombre_mesa' => 'required',
-            'numero_asientos' => 'required',
-        ];
-
-        $mensaje = [
-            'required' => 'El :attribute es requerido.',
-            'fechaFin.required' => 'La :attribute es requerida.'
-        ];
-
-        $this->validate($request, $campos, $mensaje);
 
         try {
 
@@ -104,6 +98,12 @@ class MesaController extends Controller
 
     public function update(Request $request)
     {
+        //Validacion
+        $request->validate([
+            'nombreMesa' => "required",
+            'numAsientos' => "required",
+        ]);
+
         $input = request()->except('_token');
         //$input = request()->all();
 

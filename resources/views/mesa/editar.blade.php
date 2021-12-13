@@ -19,18 +19,18 @@ Editar - Clientes
                     <div class="form-group" action="">
                         <label for="">Nombre Mesa:</label>
                         <input type="text" class="form-control" name="nombreMesa" value="{{$mesa->nombre_mesa}}">
-                        <!-- @error('nombreMesa')
-                        <small>{{ $message }}</small>
-                        @enderror -->
+                        @error('nombreMesa')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group" action="">
                         <label for="">Numero de Asientos:</label>
                         <input type="number" class="form-control" name="numAsientos" value="{{$mesa->numero_asientos}}">
-                        <!-- @error('numAsientos')
-                        <small>{{ $message }}</small>
-                        @enderror -->
+                        @error('numAsientos')
+                        <small>*{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-6">

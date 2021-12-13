@@ -30,9 +30,9 @@ class ReservaController extends Controller
             })
             ->addColumn('cambiarE', function ($reserva) {
                 if ($reserva->estado == 1) {
-                    return '<a class="btn btn-danger" href="/reserva/cambiar/estado/' . $reserva->id . '/0">Inactivo</a>';
+                    return '<a class="btn btn-danger" href="/reserva/cambiar/estado/' . $reserva->id . '/0">Desactivar</a>';
                 } else {
-                    return '<a class="btn btn-success" href="/reserva/cambiar/estado/' . $reserva->id . '/1">Activo</a>';
+                    return '<a class="btn btn-success" href="/reserva/cambiar/estado/' . $reserva->id . '/1">Activar</a>';
                 }
             })
             ->addColumn('cambiar_estadoAprobacion', function ($reserva) {
@@ -52,28 +52,24 @@ class ReservaController extends Controller
     // 1 - Crear Reserva
     public function create()
     {
-        $clientes = Cliente::all();
-        $mesas = Mesa::all();
+        $clientes = Cliente::where("estado", "=", 1)
+            ->get();
+        $mesas = Mesa::where("estado", "=", 1)
+            ->get();
         return view('reserva.crear', compact('clientes', 'mesas'));
     }
 
     public function save(Request $request)
     {
+        //Validacion
+        $request->validate([
+            'cliente_id' => "required",
+            'mesa_id' => "required",
+            'fechaFin_reserva' => "required",
+        ]);
+
         $input = request()->except('_token');
         //$input = request()->all();
-
-        $campos = [
-            'cliente_id' => 'required',
-            'mesa_id' => 'required',
-            'fechaFin' => 'required',
-        ];
-
-        $mensaje = [
-            'required' => 'El :attribute es requerido.',
-            'mesa_id.required' => 'La :attribute es requerida.'
-        ];
-
-        $this->validate($request, $campos, $mensaje);
 
         try {
             Reserva::create([
